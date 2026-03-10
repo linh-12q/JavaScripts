@@ -1,56 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student List 3-Management</title>
-    <link rel="stylesheet" href="/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="../../bootstrap-5.3.8-dist/css/bootstrap.min.css"
+    />
+    <script src="../../bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="../javascript/student.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h3>Student List 3</h3>
-        <hr>
-        <ul class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="index.html">Student List</a></li>
-            <li class="breadcrumb-item"><a href="student_list2.html">New Student 2</a></li>
-            <li class="breadcrumb-item active">Student List 3</li>
+      <h3>Student List 3</h3>
+      <hr />
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active">
+          <a href="index.html">Student List</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="student_list2.html">New Student 2</a>
+        </li>
+        <li class="breadcrumb-item active">Student List 3</li>
+      </ul>
+
+      <div class="table-responsive">
+        <table id="myTable" class="table table-bordered table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th class="text-center">No</th>
+              <th class="text-center">Student Code</th>
+              <th>
+                <div class="d-flex justify-content-between">
+                  <div>FullName</div>
+                  <div>[Sex]</div>
+                </div>
+              </th>
+              <th class="text-center">Date</th>
+              <th class="text-center">On/Off</th>
+              <th class="text-center">Delete</th>
+              <th class="text-center">Edit</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="text-center">
+        <ul class="pagination justify-content-center my-0" id="Pagination">
+          <li class="page-item">
+            <a class="page-link rounded-0" href="#" id="prev">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link rounded-0" href="#" id="next">Next</a>
+          </li>
         </ul>
-
-        <div class="table-responsive">
-            <table id="myTable" class="table table-bordered table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th class="text-center">No</th>
-                        <th class="text-center">Student Code</th>
-                        <th>
-                            <div class="d-flex justify-content-between">
-                                <div>FullName</div>
-                                <div>[Sex]</div>
-                            </div>
-                        </th>
-                        <th class="text-center">Date</th>
-                        <th class="text-center">On/Off</th>
-                        <th class="text-center">Delete</th>
-                        <th class="text-center">Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="text-center">
-            <ul class="pagination justify-content-center my-0" id="Pagination">
-                <li class="page-item"><a class="page-link rounded-0" href="#" id="prev">Previous</a></li>
-                <li class="page-item"><a class="page-link rounded-0" href="#" id="next">Next</a></li>
-            </ul>
-            <div class="py-2" id="page-numbers">Page 1 of 1</div>
-        </div>
+        <div class="py-2" id="page-numbers">Page 1 of 1</div>
+      </div>
     </div>
 
     <script src="../javascript/student_list3.js"></script>
-</body>
+  </body>
 </html>
