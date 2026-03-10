@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Input Validation Helpers</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Please Test Your Check Functions</h1>
+
+    <div class="field">
+      <input type="text" id="num" placeholder=" -42, 3.14, 0">
+      <button onclick="checkNumber()">Check Number</button>
+      <span id="num-result"></span>
+    </div>
+
+    <div class="field">
+      <input type="text" id="pos-num" placeholder=" 5, 7.89">
+      <button onclick="checkPositiveNumber()">Check Positive</button>
+      <span id="pos-num-result"></span>
+    </div>
+
+    <div class="field">
+      <input type="text" id="dec" placeholder=" 3.14, -0.001">
+      <button onclick="checkDecimal()">Check Decimal</button>
+      <span id="dec-result"></span>
+    </div>
+
+    <div class="field">
+      <input type="text" id="pos-dec" placeholder=" 2.5, 0.01">
+      <button onclick="checkPositiveDecimal()">Check Positive Decimal</button>
+      <span id="pos-dec-result"></span>
+    </div>
+
+    <div class="field">
+      <input type="text" id="email" placeholder="@domain.com">
+      <button onclick="checkEmail()">Check Email</button>
+      <span id="email-result"></span>
+    </div>
+
+    <div class="field">
+      <input type="text" id="bool" placeholder="true, false, yes, no, 1, 0">
+      <button onclick="checkBoolean()">Check Boolean</button>
+      <span id="bool-result"></span>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>

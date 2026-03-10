@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Elements - Styled</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js"></script>
+  </head>
+  <body>
+
+    <div class="container">
+      <h1>Welcome to Interactive Elements</h1>
+
+      <div class="card">
+        <h3>Element-1 (Alert)</h3>
+        <button type="button" class="btn-alert" onclick="alert('Hello teacher')">🚨 Change1 (Alert)</button>
+      </div>
+
+      <div class="card">
+        <h3>Element-2 (Tag)</h3>
+        <button type="button" class="btn-tag" onclick="changeElement2()">🏷️ Change2 (By Tag)</button>
+      </div>
+
+      <div class="card">
+        <div class="litle1">Element-3 (Class)</div>
+        <button type="button" class="btn-class" onclick="changeElement3()">📦 Change3 (By Class)</button>
+      </div>
+
+      <div class="card">
+        <div id="litle2">Element-4 (ID)</div>
+        <button type="button" class="btn-id" onclick="changeElement4()">🆔 Change4 (By ID)</button>
+      </div>
+    </div>
+
+
+  </body>
+</html>

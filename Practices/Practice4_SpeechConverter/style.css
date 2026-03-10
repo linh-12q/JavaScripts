@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Updated gradient to match the deep purple/magenta in the pic */
+    background: linear-gradient(135deg, #320d6d 0%, #901c61 50%, #b21b4a 100%);
+}
+
+.app-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    max-width: 650px;
+}
+
+.headings-container h1 {
+    font-size: 3.5rem; /* Large bold header */
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.headings-container p {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+.interaction-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 2rem;
+}
+
+.text-control {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    /* Glassmorphism Effect */
+    background-color: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 15px;
+    font-size: 1.2rem;
+    min-height: 250px;
+    resize: none;
+    transition: border 0.3s;
+}
+
+.text-control::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-family: monospace; /* Matches the coding-style font in the pic */
+}
+
+.text-control:focus {
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.btn {
+    padding: 1.2rem;
+    background: linear-gradient(90deg, #F4244C, #F57D4E);
+    border: none;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 80%; /* Aligns with the width in the picture */
+    align-self: center;
+}
+
+.btn:hover {
+    transform: scale(1.02); /* Smooth zoom instead of padding change */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.error-para {
+    color: #ffcccc;
+    font-size: 0.9rem;
+    height: 20px;
+    margin-top: -1.5rem;
+    margin-bottom: 1rem;
+}

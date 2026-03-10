@@ -1,0 +1,108 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(120deg, #2980b9, #8e44ad);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 380px;
+    padding: 20px;
+}
+
+#form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+#form h1 {
+    color: #0f2027;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+.input-control {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.input-control label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.input-control input {
+    border: 2px solid #f0f0f0;
+    border-radius: 6px;
+    display: block;
+    font-size: 14px;
+    padding: 12px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.input-control input:focus {
+    outline: 0;
+    border-color: #2939c2;
+}
+.input-control.success input {
+    border-color: #2ecc71;
+}
+
+.input-control.error input {
+    border-color: #e74c3c;
+}
+
+.input-control .error {
+    color: #e74c3c;
+    font-size: 11px;
+    margin-top: 4px;
+    min-height: 15px;
+}
+
+#form button {
+    padding: 12px;
+    margin-top: 10px;
+    width: 100%;
+    color: white;
+    background-color: #2939c2;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#form button:hover {
+    background-color: #1e2a8a;
+}
+
+.text-center {
+    text-align: center;
+    padding: 10px 0;
+    font-weight: 500;
+}
+
+#Msg.success-text {
+    color: #2ecc71;
+}
+
+#Msg.error-text {
+    color: #e74c3c;
+}

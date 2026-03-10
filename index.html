@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio Hub</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main-card">
+      <h1>🚀 My Portfolio</h1>
+      <p class="subtitle">Browse projects by folder:</p>
+
+      <div class="accordion" id="projectFolders">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#folderHomeworks"
+            >
+              📂 Homeworks
+            </button>
+          </h2>
+          <div
+            id="folderHomeworks"
+            class="accordion-collapse collapse"
+            data-bs-parent="#projectFolders"
+          >
+            <div class="accordion-body">
+              <a
+                href="./Homeworks/Homework1_firstweek/index.html"
+                class="file-link"
+              >
+                <span class="file-icon">📝</span> Homework 1 - First Week
+              </a>
+              <a
+                href="./Homeworks/Homework1-function(check)/index.html"
+                class="file-link"
+              >
+                <span class="file-icon">📝</span> Homework1 - Check Functions
+              </a>
+              <a
+                href="./Homeworks/Howework2-function(check)/index.html"
+                class="file-link"
+              >
+                <span class="file-icon">📝</span> Homework 2 - Check Functions
+                Extended
+              </a>
+              <a
+                href="./Homeworks/Homework_Validation(checK)/index.html"
+                class="file-link"
+              >
+                <span class="file-icon">📝</span> Homework 3 - Validation(Check)
+              </a>
+              <a
+                href="./Homeworks/Homework_Validation(createTeacher)/index.html"
+                class="file-link"
+              >
+                <span class="file-icon">📝</span> Homework 4 - Create Teacher
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#folderPractices"
+            >
+              🛠️ Practices
+            </button>
+          </h2>
+          <div
+            id="folderPractices"
+            class="accordion-collapse collapse"
+            data-bs-parent="#projectFolders"
+          >
+            <div class="accordion-body">
+              <a
+                href="./Practices/Practice1_changeimage/index.html"
+                class="file-link"
+              >
+                <span class="file-icon">🖼️</span> Practice 1 - Change Image
+              </a>
+
+              <a
+                href="./Practices/Practice2_html-elements/index.html"
+                class="file-link"
+              >
+                <span class="file-icon">⚡</span> Practice 2 - HTML Elements
+              </a>
+              <a
+                href="./Practices/Practice3_Validation(CreateTeacher)/index.html"
+                class="file-link"
+              >
+                <span class="file-icon">⚡</span> Practice 3 - Validation
+                (Create Teacher)
+              </a>
+              <a
+                href="./Practices/Practice4_SpeechConverter/index.html"
+                class="file-link"
+              >
+                <span class="file-icon">🔊</span> Practice 4 - Speech Converter
+              </a>
+              <a
+                href="./Practices/Practice5_Validation(login)/index.html"
+                class="file-link"
+              >
+                <span class="file-icon">⚡</span> Practice 5 - Validation
+                (Login)
+              </a>
+              <a
+                href="./Practices/Practice6-List_Management/html/index.html"
+                class="file-link"
+              >
+                <span class="file-icon">📋</span> Practice 6 - List Management
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

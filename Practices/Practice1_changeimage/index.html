@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practice1</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript">
+      function change_image(images_id, images_name) {
+        document.getElementById(images_id).src =
+          "images/" + images_name + ".jpg";
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Image Sunset</h1>
+    <p>
+      <img src="images/pic1.jpg" alt="" id="main_image" />
+    </p>
+    <p>
+      <button type="button" onclick="change_image('main_image','pic1')">
+        Image 1
+      </button>
+      <button type="button" onclick="change_image('main_image','pic2')">
+        Image 2
+      </button>
+      <button type="button" onclick="change_image('main_image','pic3')">
+        Image 3
+      </button>
+      <button type="button" onclick="change_image('main_image','pic4')">
+        Image 4
+      </button>
+    </p>
+  </body>
+</html>

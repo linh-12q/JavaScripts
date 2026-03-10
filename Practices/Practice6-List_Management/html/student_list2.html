@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List 2-Management</title>
+    <link rel="stylesheet" href="/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../javascript/student.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container">
+        <h3>Student List 2</h3>
+        <hr>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Student List</a></li>
+            <li class="breadcrumb-item active">Student List 2</li>
+            <li class="breadcrumb-item"><a href="student_list3.html">Student List 3</a></li>
+        </ul>
+
+        <div class="input-group mb-3 input-group-lg">
+            <input type="text" class="form-control" placeholder="Search" id="txtSearch">
+            <button class="btn btn-primary" type="button" onclick="searchSet()"><i class="fa fa-search"></i> Search</button>
+        </div>
+
+        <table id="myTable" class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Student Code</th>
+                    <th>
+                        <div class="d-flex justify-content-between">
+                            <div>FullName</div>
+                            <div>[Sex]</div>
+                        </div>
+                    </th>
+                    <th class="text-center">Contact</th>
+                    <th class="text-center">On/Off</th>
+                    <th class="text-center">Delete</th>
+                    <th class="text-center">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../javascript/student_list2.js"></script>
+</body>
+</html>

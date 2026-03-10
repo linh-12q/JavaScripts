@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Validation login </title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+    <form id="form">
+        <h1> Validation login </h1>
+        <div class="input-control">
+            <label for="Username">Username:</label>
+            <input type="text" name ="Username" id="Username">
+            <div class="error"></div>
+        </div>
+
+        <div class="input-control">
+            <label for="Email">Email:</label>
+            <input type="text" name="Email" id="Email">
+            <div class="error"></div>
+        </div>
+
+        <div class="input-control">
+            <label for="Password">Password:</label>
+            <input type="text" name ="Password" id="Password">
+            <div class="error"></div>
+        </div> 
+
+        <div class="input-control">
+            <label for="ComfirmPassword">Comfirm Password:</label>
+            <input type="text" name="ComfirmPassword" id="ComfirmPassword">
+            <div class="error"></div>
+        </div>
+
+        <button type="submit" id="BtCreate">Create</button>
+        <div id="Msg" class="text-center"></div>
+    </form>
+</div>
+<script src="./index.js"></script>
+</body>
+</html>
