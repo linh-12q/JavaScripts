@@ -1,14 +1,6 @@
 // Movie App - Improved Version
 
 const API_URL = "https://api.tvmaze.com/shows/30/episodes";
-// Try multiple CORS proxies as fallbacks
-const CORS_PROXIES = [
-    "https://cors-anywhere.herokuapp.com/",
-    "https://api.allorigins.win/raw?url=",
-    "https://thingproxy.freeboard.io/fetch/"
-];
-
-let FINAL_API_URL = API_URL; // Will be set based on which proxy works
 const SPINNER_TIMEOUT = 3000; // 3 seconds
 const MOVIES_PER_PAGE = 10;
 
@@ -216,7 +208,7 @@ function escapeHtml(text) {
 }
 
 /**
- * Fetch and load movie data from API with fallback proxies
+ * Fetch and load movie data from API
  */
 async function loadTable() {
     if (!API_URL) {
@@ -231,89 +223,47 @@ async function loadTable() {
 
     showSpinner();
 
-    let error = null;
-    
-    // Try direct fetch first
     try {
-        console.log('Attempting direct fetch...');
-        const response = await fetch(API_URL, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
+        console.log('Fetching from:', API_URL);
         
-        if (response.ok) {
-            const resData = await response.json();
-            if (resData && Array.isArray(resData) && resData.length > 0) {
-                console.log('Direct fetch succeeded!');
-                LoadTableData(resData);
-                hideSpinner();
-                return;
-            }
+        // Simple direct fetch - TVmaze API supports CORS
+        const response = await fetch(API_URL);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
-    } catch (e) {
-        console.log('Direct fetch failed, trying proxies...');
-        error = e;
-    }
 
-    // Try CORS proxies as fallback
-    for (const proxy of CORS_PROXIES) {
-        try {
-            console.log(`Trying proxy: ${proxy}`);
-            let fetchUrl;
-            
-            if (proxy.includes('?url=')) {
-                fetchUrl = proxy + encodeURIComponent(API_URL);
-            } else {
-                fetchUrl = proxy + API_URL;
-            }
-
-            const response = await fetch(fetchUrl, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-            
-            if (!response.ok) {
-                console.log(`Proxy ${proxy} returned status ${response.status}`);
-                continue;
-            }
-
-            let resData = await response.json();
-            
-            // If response is a string, parse it
-            if (typeof resData === 'string') {
-                resData = JSON.parse(resData);
-            }
-            
-            // Validate response
-            if (resData && Array.isArray(resData) && resData.length > 0) {
-                console.log(`Proxy ${proxy} succeeded!`);
-                LoadTableData(resData);
-                hideSpinner();
-                return;
-            }
-        } catch (e) {
-            console.log(`Proxy ${proxy} failed:`, e.message);
-            error = e;
+        let resData = await response.json();
+        
+        console.log('Data received:', resData);
+        
+        // Validate response
+        if (!resData || !Array.isArray(resData) || resData.length === 0) {
+            throw new Error('No data received from API');
         }
-    }
 
-    // All attempts failed
-    const tableBody = document.getElementById('tableBody');
-    if (tableBody) {
-        tableBody.innerHTML = `
-            <tr>
-                <td colspan="7" class="text-center text-danger">
-                    Unable to load movies. Please check your internet connection and try again.
-                </td>
-            </tr>
-        `;
+        console.log(`Successfully loaded ${resData.length} episodes`);
+        LoadTableData(resData);
+        hideSpinner();
+
+    } catch (error) {
+        console.error('Fetch Error:', error);
+        
+        // Show user-friendly error message
+        const tableBody = document.getElementById('tableBody');
+        if (tableBody) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="text-center text-danger">
+                        <strong>Error:</strong> ${error.message}<br>
+                        <small>Please check your internet connection or reload the page.</small>
+                    </td>
+                </tr>
+            `;
+        }
+
+        hideSpinner();
     }
-    console.error('All fetch attempts failed:', error);
-    hideSpinner();
 }
 
 /**

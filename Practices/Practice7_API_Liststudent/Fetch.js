@@ -3,85 +3,37 @@ const tableBody = document.getElementById("tableBody");
 const statusMsg = document.getElementById("statusMsg");
 
 const apiUrl = "https://universities.hipolabs.com/search?country=Cambodia";
-// Try multiple CORS proxies
-const corsProxies = [
-    "https://cors-anywhere.herokuapp.com/",
-    "https://api.allorigins.win/raw?url=",
-    "https://thingproxy.freeboard.io/fetch/"
-];
 
 showBtn.addEventListener("click", async () => {
-  // 1. Clear existing data and show loading status
   tableBody.innerHTML = "";
   statusMsg.textContent = "Fetching data... please wait.";
 
-  let error = null;
-
-  // Try direct fetch first
   try {
-    console.log('Attempting direct fetch...');
-    let response = await fetch(apiUrl, {
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
+    console.log('Fetching from:', apiUrl);
+    
+    let response = await fetch(apiUrl);
 
-    if (response.ok) {
-      let data = await response.json();
-      if (Array.isArray(data) && data.length > 0) {
-        console.log('Direct fetch succeeded!');
-        displayData(data);
-        return;
-      }
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
-  } catch (e) {
-    console.log('Direct fetch failed, trying proxies...');
-    error = e;
-  }
 
-  // Try CORS proxies as fallback
-  for (const proxy of corsProxies) {
-    try {
-      console.log(`Trying proxy: ${proxy}`);
-      let fetchUrl;
-      if (proxy.includes('?url=')) {
-        fetchUrl = proxy + encodeURIComponent(apiUrl);
-      } else {
-        fetchUrl = proxy + apiUrl;
-      }
+    let data = await response.json();
 
-      let response = await fetch(fetchUrl, {
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
+    console.log('Data received:', data);
 
-      if (!response.ok) {
-        console.log(`Proxy ${proxy} returned status ${response.status}`);
-        continue;
-      }
-
-      let data = await response.json();
-
-      // Handle string responses from proxy
-      if (typeof data === 'string') {
-        data = JSON.parse(data);
-      }
-
-      if (Array.isArray(data) && data.length > 0) {
-        console.log(`Proxy ${proxy} succeeded!`);
-        displayData(data);
-        return;
-      }
-    } catch (e) {
-      console.log(`Proxy ${proxy} failed:`, e.message);
-      error = e;
+    // Check if data is empty
+    if (!Array.isArray(data) || data.length === 0) {
+      statusMsg.textContent = "No universities found.";
+      return;
     }
-  }
 
-  // All attempts failed
-  statusMsg.textContent = "Failed to load data. Please check your connection and try again later.";
-  console.error("All fetch attempts failed:", error);
+    displayData(data);
+    statusMsg.textContent = "";
+
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    statusMsg.textContent = `Error: ${error.message} - Please check your connection and try again.`;
+  }
 });
 
 function displayData(data) {
