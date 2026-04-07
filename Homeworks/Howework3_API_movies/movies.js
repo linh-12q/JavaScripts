@@ -1,8 +1,14 @@
 // Movie App - Improved Version
 
 const API_URL = "https://api.tvmaze.com/shows/30/episodes";
-const CORS_PROXY = "https://api.allorigins.win/raw?url="; // CORS proxy for GitHub Pages
-const FINAL_API_URL = CORS_PROXY + encodeURIComponent(API_URL);
+// Try multiple CORS proxies as fallbacks
+const CORS_PROXIES = [
+    "https://cors-anywhere.herokuapp.com/",
+    "https://api.allorigins.win/raw?url=",
+    "https://thingproxy.freeboard.io/fetch/"
+];
+
+let FINAL_API_URL = API_URL; // Will be set based on which proxy works
 const SPINNER_TIMEOUT = 3000; // 3 seconds
 const MOVIES_PER_PAGE = 10;
 
@@ -210,10 +216,10 @@ function escapeHtml(text) {
 }
 
 /**
- * Fetch and load movie data from API
+ * Fetch and load movie data from API with fallback proxies
  */
 async function loadTable() {
-    if (!FINAL_API_URL) {
+    if (!API_URL) {
         console.error('API URL not configured');
         return;
     }
@@ -225,55 +231,89 @@ async function loadTable() {
 
     showSpinner();
 
+    let error = null;
+    
+    // Try direct fetch first
     try {
-        // Fetch with CORS proxy for better GitHub Pages compatibility
-        const response = await fetch(FINAL_API_URL, {
+        console.log('Attempting direct fetch...');
+        const response = await fetch(API_URL, {
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Accept': 'application/json'
             }
         });
         
-        // Check if response is successful
-        if (!response.ok) {
-            throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+        if (response.ok) {
+            const resData = await response.json();
+            if (resData && Array.isArray(resData) && resData.length > 0) {
+                console.log('Direct fetch succeeded!');
+                LoadTableData(resData);
+                hideSpinner();
+                return;
+            }
         }
-
-        let resData = await response.json();
-        
-        // If response is a string (from some proxies), parse it
-        if (typeof resData === 'string') {
-            resData = JSON.parse(resData);
-        }
-        
-        // Validate response
-        if (!resData || !Array.isArray(resData) || resData.length === 0) {
-            throw new Error('Empty or invalid response from server');
-        }
-
-        LoadTableData(resData);
-        hideSpinner();
-
-    } catch (error) {
-        console.error('Error loading data:', error.message);
-        console.error('Full error details:', error);
-        
-        // Show user-friendly error message
-        const tableBody = document.getElementById('tableBody');
-        if (tableBody) {
-            tableBody.innerHTML = `
-                <tr>
-                    <td colspan="7" class="text-center text-danger">
-                        Error loading movies: ${error.message}. Please try again or check your internet connection.
-                    </td>
-                </tr>
-            `;
-        }
-
-        // Hide spinner after timeout if still showing
-        loadingTimeout = setTimeout(hideSpinner, SPINNER_TIMEOUT);
+    } catch (e) {
+        console.log('Direct fetch failed, trying proxies...');
+        error = e;
     }
+
+    // Try CORS proxies as fallback
+    for (const proxy of CORS_PROXIES) {
+        try {
+            console.log(`Trying proxy: ${proxy}`);
+            let fetchUrl;
+            
+            if (proxy.includes('?url=')) {
+                fetchUrl = proxy + encodeURIComponent(API_URL);
+            } else {
+                fetchUrl = proxy + API_URL;
+            }
+
+            const response = await fetch(fetchUrl, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (!response.ok) {
+                console.log(`Proxy ${proxy} returned status ${response.status}`);
+                continue;
+            }
+
+            let resData = await response.json();
+            
+            // If response is a string, parse it
+            if (typeof resData === 'string') {
+                resData = JSON.parse(resData);
+            }
+            
+            // Validate response
+            if (resData && Array.isArray(resData) && resData.length > 0) {
+                console.log(`Proxy ${proxy} succeeded!`);
+                LoadTableData(resData);
+                hideSpinner();
+                return;
+            }
+        } catch (e) {
+            console.log(`Proxy ${proxy} failed:`, e.message);
+            error = e;
+        }
+    }
+
+    // All attempts failed
+    const tableBody = document.getElementById('tableBody');
+    if (tableBody) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="7" class="text-center text-danger">
+                    Unable to load movies. Please check your internet connection and try again.
+                </td>
+            </tr>
+        `;
+    }
+    console.error('All fetch attempts failed:', error);
+    hideSpinner();
 }
 
 /**
