@@ -3,6 +3,7 @@ const tableBody = document.getElementById("tableBody");
 const statusMsg = document.getElementById("statusMsg");
 
 const apiUrl = "https://universities.hipolabs.com/search?country=Cambodia";
+const corsProxyUrl = "https://api.allorigins.win/raw?url=";
 
 showBtn.addEventListener("click", async () => {
   tableBody.innerHTML = "";
@@ -15,7 +16,9 @@ showBtn.addEventListener("click", async () => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
     
-    let response = await fetch(apiUrl, {
+    // Try fetching with CORS proxy
+    const proxyUrl = corsProxyUrl + encodeURIComponent(apiUrl);
+    let response = await fetch(proxyUrl, {
       signal: controller.signal
     });
 
