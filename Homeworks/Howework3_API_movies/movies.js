@@ -224,7 +224,15 @@ async function loadTable() {
     showSpinner();
 
     try {
-        const response = await fetch(API_URL);
+        // Fetch with CORS headers for better compatibility
+        const response = await fetch(API_URL, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors'
+        });
         
         // Check if response is successful
         if (!response.ok) {
@@ -234,8 +242,8 @@ async function loadTable() {
         const resData = await response.json();
         
         // Validate response
-        if (!resData) {
-            throw new Error('Empty response from server');
+        if (!resData || !Array.isArray(resData) || resData.length === 0) {
+            throw new Error('Empty or invalid response from server');
         }
 
         LoadTableData(resData);
@@ -243,6 +251,7 @@ async function loadTable() {
 
     } catch (error) {
         console.error('Error loading data:', error.message);
+        console.error('Full error details:', error);
         
         // Show user-friendly error message
         const tableBody = document.getElementById('tableBody');
@@ -250,7 +259,7 @@ async function loadTable() {
             tableBody.innerHTML = `
                 <tr>
                     <td colspan="7" class="text-center text-danger">
-                        Error loading movies. Please try again later.
+                        Error loading movies: ${error.message}. Please try again later or check your connection.
                     </td>
                 </tr>
             `;
