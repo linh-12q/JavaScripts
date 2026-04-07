@@ -1,6 +1,8 @@
 // Movie App - Improved Version
 
 const API_URL = "https://api.tvmaze.com/shows/30/episodes";
+const CORS_PROXY = "https://api.allorigins.win/raw?url="; // CORS proxy for GitHub Pages
+const FINAL_API_URL = CORS_PROXY + encodeURIComponent(API_URL);
 const SPINNER_TIMEOUT = 3000; // 3 seconds
 const MOVIES_PER_PAGE = 10;
 
@@ -211,7 +213,7 @@ function escapeHtml(text) {
  * Fetch and load movie data from API
  */
 async function loadTable() {
-    if (!API_URL) {
+    if (!FINAL_API_URL) {
         console.error('API URL not configured');
         return;
     }
@@ -224,14 +226,13 @@ async function loadTable() {
     showSpinner();
 
     try {
-        // Fetch with CORS headers for better compatibility
-        const response = await fetch(API_URL, {
+        // Fetch with CORS proxy for better GitHub Pages compatibility
+        const response = await fetch(FINAL_API_URL, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            },
-            mode: 'cors'
+            }
         });
         
         // Check if response is successful
@@ -239,7 +240,12 @@ async function loadTable() {
             throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
         }
 
-        const resData = await response.json();
+        let resData = await response.json();
+        
+        // If response is a string (from some proxies), parse it
+        if (typeof resData === 'string') {
+            resData = JSON.parse(resData);
+        }
         
         // Validate response
         if (!resData || !Array.isArray(resData) || resData.length === 0) {
@@ -259,7 +265,7 @@ async function loadTable() {
             tableBody.innerHTML = `
                 <tr>
                     <td colspan="7" class="text-center text-danger">
-                        Error loading movies: ${error.message}. Please try again later or check your connection.
+                        Error loading movies: ${error.message}. Please try again or check your internet connection.
                     </td>
                 </tr>
             `;

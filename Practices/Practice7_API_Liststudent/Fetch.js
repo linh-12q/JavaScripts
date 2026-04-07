@@ -3,6 +3,8 @@ const tableBody = document.getElementById("tableBody");
 const statusMsg = document.getElementById("statusMsg");
 
 const apiUrl = "https://universities.hipolabs.com/search?country=Cambodia";
+const corsProxy = "https://api.allorigins.win/raw?url=";
+const finalUrl = corsProxy + encodeURIComponent(apiUrl);
 
 showBtn.addEventListener("click", async () => {
   // 1. Clear existing data and show loading status
@@ -10,8 +12,8 @@ showBtn.addEventListener("click", async () => {
   statusMsg.textContent = "Fetching data... please wait.";
 
   try {
-    // 2. Get data from API with CORS handling
-    let response = await fetch(apiUrl, {
+    // 2. Get data from API with CORS proxy
+    let response = await fetch(finalUrl, {
       headers: {
         'Accept': 'application/json'
       }
@@ -23,6 +25,11 @@ showBtn.addEventListener("click", async () => {
     }
 
     let data = await response.json();
+
+    // Handle string responses from proxy
+    if (typeof data === 'string') {
+      data = JSON.parse(data);
+    }
 
     // Check if data is empty
     if (!Array.isArray(data) || data.length === 0) {
