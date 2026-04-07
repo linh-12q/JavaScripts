@@ -2,6 +2,7 @@
 
 const API_URL = "https://api.tvmaze.com/shows/30/episodes";
 const SPINNER_TIMEOUT = 3000; // 3 seconds
+const FETCH_TIMEOUT = 10000; // 10 seconds max for API call
 const MOVIES_PER_PAGE = 10;
 
 let loadingTimeout;
@@ -104,7 +105,7 @@ function displayMovies() {
                 <td class="text-left">${escapeHtml(name)}</td>
                 <td class="text-center">${escapeHtml(type)}</td>
                 <td class="text-center">
-                    <img src="${imageUrl}" alt="${escapeHtml(name)}" style="max-width: 300px; height: auto;">
+                    <img src="${imageUrl}" alt="${escapeHtml(name)}" loading="lazy" style="max-width: 150px; height: auto; border-radius: 4px;">
                 </td>
                 <td class="text-center">${escapeHtml(airDate)}</td>
                 <td class="text-center">${runtime} min</td>
@@ -222,12 +223,32 @@ async function loadTable() {
     }
 
     showSpinner();
+    
+    // Show loading message in table
+    const tableBody = document.getElementById('tableBody');
+    if (tableBody) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="7" class="text-center text-info">
+                    <strong>Fetching movies... This may take a moment.</strong>
+                </td>
+            </tr>
+        `;
+    }
 
     try {
         console.log('Fetching from:', API_URL);
         
-        // Simple direct fetch - TVmaze API supports CORS
-        const response = await fetch(API_URL);
+        // Create abort controller with timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
+        
+        // Fetch with timeout
+        const response = await fetch(API_URL, {
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -249,14 +270,19 @@ async function loadTable() {
     } catch (error) {
         console.error('Fetch Error:', error);
         
+        let errorMsg = error.message;
+        if (error.name === 'AbortError') {
+            errorMsg = 'Request timed out - API is too slow. Please try again.';
+        }
+        
         // Show user-friendly error message
         const tableBody = document.getElementById('tableBody');
         if (tableBody) {
             tableBody.innerHTML = `
                 <tr>
                     <td colspan="7" class="text-center text-danger">
-                        <strong>Error:</strong> ${error.message}<br>
-                        <small>Please check your internet connection or reload the page.</small>
+                        <strong>Error:</strong> ${errorMsg}<br>
+                        <small>Please check your internet connection or try again later.</small>
                     </td>
                 </tr>
             `;

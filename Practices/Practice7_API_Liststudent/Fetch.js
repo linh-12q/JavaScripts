@@ -11,7 +11,15 @@ showBtn.addEventListener("click", async () => {
   try {
     console.log('Fetching from:', apiUrl);
     
-    let response = await fetch(apiUrl);
+    // Create abort controller with 10 second timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    
+    let response = await fetch(apiUrl, {
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -32,7 +40,11 @@ showBtn.addEventListener("click", async () => {
 
   } catch (error) {
     console.error("Fetch Error:", error);
-    statusMsg.textContent = `Error: ${error.message} - Please check your connection and try again.`;
+    let msg = error.message;
+    if (error.name === 'AbortError') {
+      msg = 'Request timed out - API is too slow. Please try again.';
+    }
+    statusMsg.textContent = `Error: ${msg}`;
   }
 });
 
