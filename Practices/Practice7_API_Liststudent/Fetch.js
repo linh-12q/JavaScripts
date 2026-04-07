@@ -2,7 +2,7 @@ const showBtn = document.getElementById("showBtn");
 const tableBody = document.getElementById("tableBody");
 const statusMsg = document.getElementById("statusMsg");
 
-const apiUrl = "http://universities.hipolabs.com/search?country=Cambodia";
+const apiUrl = "https://universities.hipolabs.com/search?country=Cambodia";
 
 showBtn.addEventListener("click", async () => {
   // 1. Clear existing data and show loading status

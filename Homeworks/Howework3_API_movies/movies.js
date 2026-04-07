@@ -1,6 +1,6 @@
 // Movie App - Improved Version
 
-const API_URL = "http://api.tvmaze.com/shows/30/episodes";
+const API_URL = "https://api.tvmaze.com/shows/30/episodes";
 const SPINNER_TIMEOUT = 3000; // 3 seconds
 const MOVIES_PER_PAGE = 10;
 
