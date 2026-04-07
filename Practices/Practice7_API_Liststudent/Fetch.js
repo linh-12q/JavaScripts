@@ -12,9 +12,9 @@ showBtn.addEventListener("click", async () => {
   try {
     console.log('Fetching from:', apiUrl);
     
-    // Create abort controller with 10 second timeout
+    // Create abort controller with 30 second timeout
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
     
     // Try fetching with CORS proxy
     const proxyUrl = corsProxyUrl + encodeURIComponent(apiUrl);
