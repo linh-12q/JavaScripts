@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student List-Management</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/jquery.min.js"></script>
+    <script src="../javascript/student.js"></script>
+    <script src="../javascript/student_list4.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h3>Student List</h3>
+      <hr />
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active">
+          <a href="index.html"> Student List1</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="student_list2.html">Student List 2</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="student_list3.html">Student List 3</a>
+        </li>
+        <li class="breadcrumb-item active">Student List by jQuery</li>
+      </ul>
+
+      <table id="myTable" class="table table-bordered table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th class="text-center">No</th>
+            <th class="text-center">Student Code</th>
+            <th>
+              <div class="d-flex justify-content-between">
+                <div>FullName</div>
+                <div>[Sex]</div>
+              </div>
+            </th>
+            <th class="text-center">Contact</th>
+            <th class="text-center">On/Off</th>
+            <th class="text-center">Delete</th>
+            <th class="text-center">Edit</th>
+          </tr>
+        </thead>
+        <tbody id="myTableBody"></tbody>
+      </table>
+    </div>
+    <div class="modal fade" id="ModalOnOff" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">ModalOn/Off</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body" id="onOffBody">
+            Are you sure you want to toggle the status for this student?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="btnConfirmOnOff">
+              Confirm
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="ModalDelete" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title">ModelDelete</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              This action is <strong>permanent</strong>. Are you sure you want
+              to delete this record?
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="btnConfirmDelete">
+              Delete
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="ModalEdit" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title">ModelEdit</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="editForm">
+              <input type="hidden" id="editStudentId" />
+              <div class="mb-3">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-control" id="editFirstName" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="editLastName" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Contact Number</label>
+                <input type="text" class="form-control" id="editContact" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" id="btnSaveEdit">
+              Save Changes
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
