@@ -1,0 +1,52 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color:white;
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  width: 350px;
+  margin: 100px auto;
+  background-color: rgb(31, 177, 207);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  margin-top: 15px;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+
+#message {
+  text-align: center;
+  font-weight: bold;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}
